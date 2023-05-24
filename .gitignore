@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#Venv of the project
+.rest-api/
+
 # C extensions
 *.so
 
