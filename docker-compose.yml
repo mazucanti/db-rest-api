@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+    environment:
+      - POSTGRES_DB=company
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=admin
+    ports:
+      - 5432:5432
