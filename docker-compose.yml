@@ -4,13 +4,13 @@ services:
     build: ./api/
     ports:
       - 5000:5000
+    env_file:
+      - credentials.env
   db:
     image: postgres
     volumes:
       - ./create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
-    environment:
-      - POSTGRES_DB=company
-      - POSTGRES_PASSWORD=123
-      - POSTGRES_USER=admin
+    env_file:
+      - credentials.env
     ports:
       - 5432:5432
