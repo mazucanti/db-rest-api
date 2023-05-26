@@ -1,5 +1,15 @@
 <html>
     <body>
-        <h1>testing landing page</h1>
+        <h1 text-align: center;>Welcome to the ugliest REST API you'll see today!</h1>
+
+        If you wish to update the company's tables, see the form bellow:
+        <form action = "http://localhost:5000/data" method = "POST" 
+         enctype = "multipart/form-data">
+         Table name:
+         <input type = "text" name = "table" />
+         CSV file:
+         <input type = "file" name = "file" />
+         <input type = "submit"/>
+      </form>
     </body>
 </html>
