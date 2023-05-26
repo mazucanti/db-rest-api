@@ -57,5 +57,9 @@ def upload_data():
         return redirect('localhost:5000')
     return redirect('localhost:5000')
 
+@app.route('/hired_above_avg', methods=["GET"])
+def render_table():
+    table = metrics.hired_higher_than_avg(db)
+    return render_template('hired_avg.html', table=table)
 
 app.run(port=5000, host='0.0.0.0', debug=True)
