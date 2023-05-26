@@ -55,8 +55,8 @@ def upload_data():
         if table == '':
             return redirect(request.url)
         db_operations.insert_csv_table(db, file_path, table)
-        return redirect(url_for(''))
-    return redirect(url_for(''))
+        return redirect(url_for('index'))
+    return redirect(url_for('index'))
 
 @app.route('/hired_above_avg', methods=["GET"])
 def render_table():
