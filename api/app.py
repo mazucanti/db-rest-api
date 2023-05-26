@@ -2,7 +2,8 @@ from flask import (
     Flask,
     redirect,
     request,
-    render_template
+    render_template,
+    url_for
 )
 from modules import (
     db_operations,
@@ -54,8 +55,8 @@ def upload_data():
         if table == '':
             return redirect(request.url)
         db_operations.insert_csv_table(db, file_path, table)
-        return redirect('localhost:5000')
-    return redirect('localhost:5000')
+        return redirect(url_for('/'))
+    return redirect(url_for('/'))
 
 @app.route('/hired_above_avg', methods=["GET"])
 def render_table():
