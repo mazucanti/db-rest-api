@@ -1,4 +1,6 @@
 import csv
+from sqlalchemy.sql import text
+import re
 
 
 def insert_csv_table(db, file_path, table):
@@ -8,8 +10,8 @@ def insert_csv_table(db, file_path, table):
     )
     with open(file_path, 'r') as csvfile:
         datareader = csv.reader(csvfile)
-        sql = batch_processing(sql_base, datareader)
-        db.engine.execute(sql)
+        sql = batch_processing(db, sql_base, datareader)
+        insert_batch(db, sql)
 
 
 def batch_processing(db, sql_base, datareader):
@@ -18,10 +20,19 @@ def batch_processing(db, sql_base, datareader):
     for row in datareader:
         if i < 1000:
             sql = sql + f'{tuple(row)},\n'
+            i+=1
         else:
             sql = sql + f'{tuple(row)};'
-            db.engine.execute(sql)
+            insert_batch(db, sql)
             sql = sql_base
             i = 0
     sql = sql[:-2] + ';'
     return sql
+
+def insert_batch(db, sql):
+    sql = sql.replace("\'\'", "NULL")
+    sql = sql.replace('\"', "\'")
+    sql = re.sub(r"(\w+)'(\w+)", r"\1 \2", sql)
+    with db.engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
