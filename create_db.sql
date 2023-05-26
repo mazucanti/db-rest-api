@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS employees (
     CONSTRAINT fk_department_id
         FOREIGN KEY(department_id)
             REFERENCES departments(id)
-            ON DELETE CASCADE,
+            ON DELETE SET NULL,
     CONSTRAINT fk_job_id
         FOREIGN KEY(job_id)
             REFERENCES jobs(id)
-            ON DELETE CASCADE
+            ON DELETE SET NULL
 );
