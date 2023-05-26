@@ -22,11 +22,15 @@ def batch_processing(db, sql_base, datareader):
             sql = sql + f'{tuple(row)},\n'
             i+=1
         else:
-            sql = sql + f'{tuple(row)};'
+            sql = sql + (
+                f'{tuple(row)}\n'
+                'ON CONFLICT DO NOTHING;'
+            )
             insert_batch(db, sql)
             sql = sql_base
             i = 0
-    sql = sql[:-2] + ';'
+    sql = sql[:-2] + ''
+    sql = sql + 'ON CONFLICT DO NOTHING;'
     return sql
 
 def insert_batch(db, sql):
